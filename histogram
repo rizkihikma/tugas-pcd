@@ -1,0 +1,23 @@
+#Import pustaka yang diperlukan
+import imageio.v3 as iio
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Membaca gambar berwarna (RGB)
+gambar_rgb = iio.imread('tugaspc.png')
+
+# Mengubah gambar menjadi grayscale
+gambar_grayscale = np.dot(gambar_rgb[...,:3], [0.2989, 0.5870, 0.1140])
+
+# Menghitung histogram intensitas piksel (0-255)
+histogram, bins = np.histogram(gambar_grayscale.ravel(), bins=256, range=(0, 256))
+
+# Plot histogram
+plt.figure(figsize=(12, 6))
+plt.bar(range(256), histogram, color='gray', alpha=0.7)
+plt.title('Histogram Intensitas Piksel (Grayscale)')
+plt.xlabel('Intensitas Piksel')
+plt.ylabel('Jumlah Piksel')
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.savefig('histogram_result.png')
+plt.show()
